@@ -4,9 +4,11 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 
 ## 1. What was broken when you started?
 
-- What did the game look like the first time you ran it?
+- What did the game look like the first time you ran it? 
+  - It printed the welcome message from streamlit and asked for email (not for login purpose) then it loaded to the application. There is a setting panel on the left side of the screen with difficulty dropdown (easy, normal, hard) and "Normal" by default, an input range of 1 to 100 (not clickable), and number of allowed attempts of 8 (not clickable). In the middle of the screen, there is a dropdown of Developer Debug Info table under the line "Guess a number between 1 and 100. Attempts left: 7". Underneath is the space to type a guess, Submit Guess button, New Game button, checked Show hint box.
 - List at least two concrete bugs you noticed at the start  
-  (for example: "the hints were backwards").
+  - Attempts left: 7 (allowed = 8) & Attempts: 1 on the Developer Debug Info
+  - Score showed negative number (-5) after the first attempt
 
 **Bug Reproduction Log**
 
@@ -14,9 +16,16 @@ Document at least 3 bugs you found. Add rows as needed.
 
 | Input | Expected Behavior | Actual Behavior | Console Output / Error |
 |-------|-------------------|-----------------|------------------------|
-| | | | |
-| | | | |
-| | | | |
+| guess of 20 | "Too Low" hint or "Go Higher" feedback | "Go LOWER!" feedback | None |
+| guess of 19, uncheck Show Hint before Submit Guess, check Show Hint after Submit Guess | Hint is shown after click on Show Hint post Submit Guess | No hint is shown | None |
+| guess of 25, hit enter to submit guess | Guess is submitted; Attempts left = 4; Attempts = 3 | Guess is not submitted; Attempts left = 5; Attempts = 3 | None |
+| guess of 25 after enter error, use Submit Guess | Attempts left = 4; History must include "2: 25" | Attempts left = 5; History doesn't include "2: 25" | None |
+| guess of 27 (correct ans), use Submit Guess | "Correct" feedback; Attempts left = 3; Attempts: 4; History includes "3: 27" | "Correct" feedback, Attempts left = 4, Attempts: 4, History didn't include "3: 27" | None |
+| hit New Game button | History is refreshed; Attempts left = 8; Attempts: 0; Score: 0 | History contains "0: 20, 1: 19, 2: 25, 3: 27"; Attempts: 0, Attempts left = 8; Score: 25 | None |
+| guess of 60 (new game) | History is updated to include the entry of 60; Attempts left = 7; Attempts: 1, Score is updated | History isn't updated to include the entry of 60; Attempts left = 8; Attempts: 0, Score isn't updated | None |
+| refresh the web after "60" | History is refreshed; Attempts left = 8; Attempts: 0; Score: 0 | History is refreshed (no entries); Attempts left = 7; Attempts: 1; Score: 0 | None |
+| guess of 70 after refresh | History includes an entry of 70; Attempts left = 6; Attempts: 2; Score changes; "Go HIGHER!" feedback | History shows no entries; Attempts left = 7; Attempts: 1; Score: 0; "Go LOWER!" feedback | None |
+
 
 ---
 
