@@ -16,15 +16,10 @@ Document at least 3 bugs you found. Add rows as needed.
 
 | Input | Expected Behavior | Actual Behavior | Console Output / Error |
 |-------|-------------------|-----------------|------------------------|
-| guess of 20 | "Too Low" hint or "Go Higher" feedback | "Go LOWER!" feedback | None |
-| guess of 19, uncheck Show Hint before Submit Guess, check Show Hint after Submit Guess | Hint is shown after click on Show Hint post Submit Guess | No hint is shown | None |
-| guess of 25, hit enter to submit guess | Guess is submitted; Attempts left = 4; Attempts = 3 | Guess is not submitted; Attempts left = 5; Attempts = 3 | None |
-| guess of 25 after enter error, use Submit Guess | Attempts left = 4; History must include "2: 25" | Attempts left = 5; History doesn't include "2: 25" | None |
-| guess of 27 (correct ans), use Submit Guess | "Correct" feedback; Attempts left = 3; Attempts: 4; History includes "3: 27" | "Correct" feedback, Attempts left = 4, Attempts: 4, History didn't include "3: 27" | None |
-| hit New Game button | History is refreshed; Attempts left = 8; Attempts: 0; Score: 0 | History contains "0: 20, 1: 19, 2: 25, 3: 27"; Attempts: 0, Attempts left = 8; Score: 25 | None |
-| guess of 60 (new game) | History is updated to include the entry of 60; Attempts left = 7; Attempts: 1, Score is updated | History isn't updated to include the entry of 60; Attempts left = 8; Attempts: 0, Score isn't updated | None |
-| refresh the web after "60" | History is refreshed; Attempts left = 8; Attempts: 0; Score: 0 | History is refreshed (no entries); Attempts left = 7; Attempts: 1; Score: 0 | None |
-| guess of 70 after refresh | History includes an entry of 70; Attempts left = 6; Attempts: 2; Score changes; "Go HIGHER!" feedback | History shows no entries; Attempts left = 7; Attempts: 1; Score: 0; "Go LOWER!" feedback | None |
+| Start game on Normal mode | Attempts = 0 and Attempts left = 8 | Attempts = 1 and Attempts left = 7 | None |
+| Guess 20 when secret is 27 | Feedback says “Too Low” or “Go HIGHER!” | Feedback says “Go LOWER!” | None |
+| Make several guesses, then click New Game | History clears, score resets to 0, attempts reset to 0 | Previous history remains and score stays 25 | None |
+| Type 25 and press Enter | Guess submits or app clearly requires button click | Guess is not submitted, but state/history becomes confusing | None |
 
 
 ---
