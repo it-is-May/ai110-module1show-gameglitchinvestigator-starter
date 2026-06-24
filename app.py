@@ -33,7 +33,7 @@ def parse_guess(raw: str):
     return True, value, None
 
 
-# FIX: Refactored check_guess() into logic_utils.py using agent mode
+# FIX: Refactored check_guess() into logic_utils.py using agent mode & re-aligned the corresponding feedback to outcome
 
 
 def update_score(current_score: int, outcome: str, attempt_number: int):
@@ -81,8 +81,8 @@ st.sidebar.caption(f"Attempts allowed: {attempt_limit}")
 if "secret" not in st.session_state:
     st.session_state.secret = random.randint(low, high)
 
-if "attempts" not in st.session_state: # FIXME: LOGIC BREAKS HERE (affected line st.info/Attempts left)
-    st.session_state.attempts = 1
+if "attempts" not in st.session_state: # FIX: set the initial state of attempt to zero
+    st.session_state.attempts = 0
 
 if "score" not in st.session_state:
     st.session_state.score = 0
