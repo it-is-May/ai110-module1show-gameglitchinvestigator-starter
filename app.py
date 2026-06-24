@@ -1,6 +1,10 @@
 import random
 import streamlit as st
 
+from logic_utils import (
+    check_guess,
+)
+
 def get_range_for_difficulty(difficulty: str):
     if difficulty == "Easy":
         return 1, 20
@@ -29,22 +33,7 @@ def parse_guess(raw: str):
     return True, value, None
 
 
-def check_guess(guess, secret):
-    if guess == secret:
-        return "Win", "🎉 Correct!"
-
-    try:
-        if guess > secret:
-            return "Too High", "📈 Go HIGHER!"
-        else:
-            return "Too Low", "📉 Go LOWER!"
-    except TypeError:
-        g = str(guess)
-        if g == secret:
-            return "Win", "🎉 Correct!"
-        if g > secret:
-            return "Too High", "📈 Go HIGHER!"
-        return "Too Low", "📉 Go LOWER!"
+# FIX: Refactored check_guess() into logic_utils.py using agent mode
 
 
 def update_score(current_score: int, outcome: str, attempt_number: int):
@@ -54,15 +43,15 @@ def update_score(current_score: int, outcome: str, attempt_number: int):
             points = 10
         return current_score + points
 
-    if outcome == "Too High":
+    if outcome == "Too High": # potential bug: why punishing odd attempt?
         if attempt_number % 2 == 0:
-            return current_score + 5
+            return current_score + 5 # sometimes occur for odds while not logically
         return current_score - 5
 
-    if outcome == "Too Low":
+    if outcome == "Too Low": # why does the scoring always punish too low?
         return current_score - 5
 
-    return current_score
+    return current_score # bug: why does it return "-5" on the developer debug info?
 
 st.set_page_config(page_title="Glitchy Guesser", page_icon="🎮")
 
@@ -92,7 +81,7 @@ st.sidebar.caption(f"Attempts allowed: {attempt_limit}")
 if "secret" not in st.session_state:
     st.session_state.secret = random.randint(low, high)
 
-if "attempts" not in st.session_state:
+if "attempts" not in st.session_state: # FIXME: LOGIC BREAKS HERE (affected line st.info/Attempts left)
     st.session_state.attempts = 1
 
 if "score" not in st.session_state:
